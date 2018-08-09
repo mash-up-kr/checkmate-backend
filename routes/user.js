@@ -18,7 +18,7 @@ router.get('/:userId/work', function(req, res) {
 });
 
 router.post('/:userId/work', function(req, res) {
-  func.workIdGenerator(req, req.params.userId, function(workId) {
+  func.workIdGenerator(res, req.params.userId, function(workId) {
     const work = {
       "id": workId,
       "user_id": req.params.userId,
