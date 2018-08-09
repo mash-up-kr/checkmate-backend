@@ -16,9 +16,9 @@ module.exports = {
    });
   },
   baseDayCalculator(callback) {
-    const before_date = new Date();
-    const after_date = (before_date.getMonth() > 0) ? new Date(before_date.getFullYear(), before_date.getMonth(), 0) : new Date(before_date.getFullYear() - 1, 12, 0);
-    const base_day = after_date.getDate();
-    callback(base_day);
+    const beforeDate = new Date();
+    const afterDate = (beforeDate.getMonth() > 0) ? new Date(beforeDate.getFullYear(), beforeDate.getMonth(), 0) : new Date(beforeDate.getFullYear() - 1, 12, 0);
+    const baseDay = afterDate.getDate();
+    callback(baseDay);
   }
 };
