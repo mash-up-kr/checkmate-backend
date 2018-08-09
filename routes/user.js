@@ -47,7 +47,16 @@ router.post('/:userId/work', function(req, res) {
 });
 
 router.get('/:userId/work/:workId', function(req, res) {
-
+  const sql = 'SELECT * FROM works WHERE id=?'
+  conn.query(sql, [req.params.workId], function(err, results) {
+    if(err | results.length === 0 | results.length > 1) {
+      console.log(err);
+      res.status(500).json(config.status.sc500);
+    } else {
+      console.log('Response a single work !');
+      res.json(results[0]);
+    }
+  });
 });
 
 router.put('/:userId/work/:workId', function(req, res) {
