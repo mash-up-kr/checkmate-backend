@@ -10,5 +10,6 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/auth/', auth);
+app.use('/user/', user);
 
 module.exports = app;
