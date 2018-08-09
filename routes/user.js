@@ -5,7 +5,7 @@ const config = require('../config/config');
 const func = require('../config/function');
 
 router.get('/:userId/work', function(req, res) {
-  const sql = 'SELECT * FROM works WHERE user_id=?'
+  const sql = 'SELECT * FROM works WHERE user_id=?';
   conn.query(sql, [req.params.userId], function(err, results) {
     if(err) {
       console.log(err);
@@ -47,7 +47,7 @@ router.post('/:userId/work', function(req, res) {
 });
 
 router.get('/:userId/work/:workId', function(req, res) {
-  const sql = 'SELECT * FROM works WHERE id=?'
+  const sql = 'SELECT * FROM works WHERE id=?';
   conn.query(sql, [req.params.workId], function(err, results) {
     if(err | results.length === 0 | results.length > 1) {
       console.log(err);
@@ -60,7 +60,17 @@ router.get('/:userId/work/:workId', function(req, res) {
 });
 
 router.put('/:userId/work/:workId', function(req, res) {
-
+  const sql = 'UPDATE works SET name=?, address=?, latitude=?, longitude=?, hourly_wage=?, probation=?, recess=?, recess_state=?, pay_day=?, tax=? WHERE id=?';
+  const params = [req.body.name, req.body.address, req.body.latitude, req.body.longitude, req.body.hourly_wage, req.body.probation, req.body.recess, req.body.recess_state, req.body.pay_day, req.body.tax, req.params.workId];
+  conn.query(sql, params, function(err, results) {
+    if(err) {
+      console.log(err);
+      req.status(500).json(config.status.sc500);
+    } else {
+      console.log('Update a single work !');
+      res.status(200).json(config.status.sc200);
+    }
+  });
 });
 
 router.delete('/:userId/work/:workId', function(req, res) {
