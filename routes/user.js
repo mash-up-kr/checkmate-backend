@@ -74,7 +74,16 @@ router.put('/:userId/work/:workId', function(req, res) {
 });
 
 router.delete('/:userId/work/:workId', function(req, res) {
-
+  const sql = 'DELETE FROM works WHERE id=?'
+  conn.query(sql, [req.params.workId], function(err, results) {
+    if(err) {
+      console.log(err);
+      req.status(500).json(config.status.sc500);
+    } else {
+      console.log('Delete a single work !');
+      res.status(200).json(config.status.sc200);
+    }
+  });
 });
 
 router.get('/:userId/work/:workId/main', function(req, res) {
