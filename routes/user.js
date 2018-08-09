@@ -65,7 +65,7 @@ router.put('/:userId/work/:workId', function(req, res) {
   conn.query(sql, params, function(err, results) {
     if(err) {
       console.log(err);
-      req.status(500).json(config.status.sc500);
+      res.status(500).json(config.status.sc500);
     } else {
       console.log('Update a single work !');
       res.status(200).json(config.status.sc200);
@@ -78,7 +78,7 @@ router.delete('/:userId/work/:workId', function(req, res) {
   conn.query(sql, [req.params.workId], function(err, results) {
     if(err) {
       console.log(err);
-      req.status(500).json(config.status.sc500);
+      res.status(500).json(config.status.sc500);
     } else {
       console.log('Delete a single work !');
       res.status(200).json(config.status.sc200);
