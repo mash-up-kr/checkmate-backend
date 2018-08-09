@@ -22,3 +22,5 @@
 - Front-End(ios) : 김동현, 김선재, 김창민, 김현섭
 - Back-End(node.js) : 김찬연, 김한슬마로, 조현우
 - Designer : 이다민, 조성윤
+
+![checkmate](https://user-images.githubusercontent.com/36880294/43879776-84c9254e-9be0-11e8-9ac5-2e128f58ee22.png)
