@@ -5,7 +5,16 @@ const config = require('../config/config');
 const func = require('../config/function');
 
 router.get('/:userId/work', function(req, res) {
-
+  const sql = 'SELECT * FROM works WHERE user_id=?'
+  conn.query(sql, [req.params.userId], function(err, results) {
+    if(err) {
+      console.log(err);
+      res.status(500).json(config.status.sc500);
+    } else {
+      console.log('Response all work !');
+      res.json(results);
+    }
+  });
 });
 
 router.post('/:userId/work', function(req, res) {
