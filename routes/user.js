@@ -74,7 +74,7 @@ router.put('/:userId/work/:workId', function(req, res) {
 });
 
 router.delete('/:userId/work/:workId', function(req, res) {
-  const sql = 'DELETE FROM works WHERE id=?'
+  const sql = 'DELETE FROM works WHERE id=?';
   conn.query(sql, [req.params.workId], function(err, results) {
     if(err) {
       console.log(err);

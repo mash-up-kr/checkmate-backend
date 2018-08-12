@@ -22,7 +22,7 @@ module.exports = {
     callback(baseDay);
   },
   totalDayCalculator(res, workId, callback) {
-    const sql = 'SELECT pay_day FROM works WHERE id=?'
+    const sql = 'SELECT pay_day FROM works WHERE id=?';
     conn.query(sql, [workId], function(err, results) {
       if(err | results.length === 0) {
         console.log(err);
@@ -40,4 +40,4 @@ module.exports = {
       }
     });
   }
-};
+}; 
