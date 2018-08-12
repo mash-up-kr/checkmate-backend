@@ -91,7 +91,21 @@ router.get('/:userId/work/:workId/main', function(req, res) {
 });
 
 router.post('/:userId/work/:workId/main', function(req, res) {
-
+  const timestamp = {
+    "user_id": req.params.userId,
+    "work_id": req.params.workId
+  };
+  const sql = "INSERT INTO timestamps SET ?";
+  conn.query(sql, timestamp, function(err, results) {
+    if(err) {
+      console.log(err);
+      res.status(500).json(config.status.sc500);
+    } else {
+      console.log('Add new timestamp !');
+      console.log(`working_state : ${req.body.working_state}`);
+      res.status(200).json(config.status.sc200);
+    }
+  });
 });
 
 router.get('/:userId/work/:workId/main/detail', function(req, res) {
