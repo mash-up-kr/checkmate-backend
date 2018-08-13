@@ -4,10 +4,10 @@ const conn = require('../config/mysql');
 const config = require('../config/config');
 const func = require('../config/function');
 
-router.get('/:userId/work', function(req, res) {
+router.get('/:userId/work', (req, res) => {
   const sql = 'SELECT * FROM works WHERE user_id=?';
-  conn.query(sql, [req.params.userId], function(err, results) {
-    if(err) {
+  conn.query(sql, [req.params.userId], (err, results) => {
+    if (err) {
       console.log(err);
       res.status(500).json(config.status.sc500);
     } else {
@@ -17,25 +17,25 @@ router.get('/:userId/work', function(req, res) {
   });
 });
 
-router.post('/:userId/work', function(req, res) {
-  func.workIdGenerator(res, req.params.userId, function(workId) {
+router.post('/:userId/work', (req, res) => {
+  func.workIdGenerator(res, req.params.userId, (workId) => {
     const work = {
-      "id": workId,
-      "user_id": req.params.userId,
-      "name": req.body.name,
-      "address": req.body.address,
-      "latitude": req.body.latitude,
-      "longitude": req.body.longitude,
-      "hourly_wage": req.body.hourly_wage,
-      "probation": req.body.probation,
-      "recess": req.body.recess,
-      "recess_state": req.body.recess_state,
-      "pay_day": req.body.pay_day,
-      "tax": req.body.tax
+      id: workId,
+      user_id: req.params.userId,
+      name: req.body.name,
+      address: req.body.address,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude,
+      hourly_wage: req.body.hourly_wage,
+      probation: req.body.probation,
+      recess: req.body.recess,
+      recess_state: req.body.recess_state,
+      pay_day: req.body.pay_day,
+      tax: req.body.tax,
     };
     const sql = 'INSERT INTO works SET ?';
-    conn.query(sql, work, function(err, results) {
-      if(err) {
+    conn.query(sql, work, (err) => {
+      if (err) {
         console.log(err);
         res.status(500).json(config.status.sc500);
       } else {
@@ -46,10 +46,10 @@ router.post('/:userId/work', function(req, res) {
   });
 });
 
-router.get('/:userId/work/:workId', function(req, res) {
+router.get('/:userId/work/:workId', (req, res) => {
   const sql = 'SELECT * FROM works WHERE id=?';
-  conn.query(sql, [req.params.workId], function(err, results) {
-    if(err | results.length === 0 | results.length > 1) {
+  conn.query(sql, [req.params.workId], (err, results) => {
+    if (err || results.length === 0 || results.length > 1) {
       console.log(err);
       res.status(500).json(config.status.sc500);
     } else {
@@ -59,11 +59,12 @@ router.get('/:userId/work/:workId', function(req, res) {
   });
 });
 
-router.put('/:userId/work/:workId', function(req, res) {
+router.put('/:userId/work/:workId', (req, res) => {
   const sql = 'UPDATE works SET name=?, address=?, latitude=?, longitude=?, hourly_wage=?, probation=?, recess=?, recess_state=?, pay_day=?, tax=? WHERE id=?';
-  const params = [req.body.name, req.body.address, req.body.latitude, req.body.longitude, req.body.hourly_wage, req.body.probation, req.body.recess, req.body.recess_state, req.body.pay_day, req.body.tax, req.params.workId];
-  conn.query(sql, params, function(err, results) {
-    if(err) {
+  const body = Object.values(req.body);
+  const params = [...body, req.params.workId];
+  conn.query(sql, params, (err) => {
+    if (err) {
       console.log(err);
       res.status(500).json(config.status.sc500);
     } else {
@@ -73,10 +74,10 @@ router.put('/:userId/work/:workId', function(req, res) {
   });
 });
 
-router.delete('/:userId/work/:workId', function(req, res) {
+router.delete('/:userId/work/:workId', (req, res) => {
   const sql = 'DELETE FROM works WHERE id=?';
-  conn.query(sql, [req.params.workId], function(err, results) {
-    if(err) {
+  conn.query(sql, [req.params.workId], (err) => {
+    if (err) {
       console.log(err);
       res.status(500).json(config.status.sc500);
     } else {
@@ -86,18 +87,18 @@ router.delete('/:userId/work/:workId', function(req, res) {
   });
 });
 
-router.get('/:userId/work/:workId/main', function(req, res) {
+router.get('/:userId/work/:workId/main', (req, res) => {
 
 });
 
-router.post('/:userId/work/:workId/main', function(req, res) {
+router.post('/:userId/work/:workId/main', (req, res) => {
   const timestamp = {
-    "user_id": req.params.userId,
-    "work_id": req.params.workId
+    user_id: req.params.userId,
+    work_id: req.params.workId,
   };
-  const sql = "INSERT INTO timestamps SET ?";
-  conn.query(sql, timestamp, function(err, results) {
-    if(err) {
+  const sql = 'INSERT INTO timestamps SET ?';
+  conn.query(sql, timestamp, (err) => {
+    if (err) {
       console.log(err);
       res.status(500).json(config.status.sc500);
     } else {
@@ -108,15 +109,15 @@ router.post('/:userId/work/:workId/main', function(req, res) {
   });
 });
 
-router.get('/:userId/work/:workId/main/detail', function(req, res) {
+router.get('/:userId/work/:workId/main/detail', (req, res) => {
 
 });
 
-router.get('/:userId/work/:workId/main/calendar/:year/:month', function(req, res) {
+router.get('/:userId/work/:workId/main/calendar/:year/:month', (req, res) => {
 
 });
 
-router.get('/:userId/work/:workId/main/calendar/:year/:month/day', function(req, res) {
+router.get('/:userId/work/:workId/main/calendar/:year/:month/day', (req, res) => {
 
 });
 
