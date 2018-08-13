@@ -7,7 +7,6 @@
  - "사장님이 계산하신 시급이랑 내가 계산한 시급이 다른데 어떻게 말씀드릴까?"  
  - 위와 같은 고민으로부터 아이디어를 실현 시켰습니다.
 
-
 ### API 문서 정리 & DB 구조
 
  - **[checkmate API Document](https://github.com/mash-up-kr/checkmate-backend/wiki/checkmate-API-Document)**
