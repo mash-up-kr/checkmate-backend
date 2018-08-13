@@ -61,8 +61,7 @@ router.get('/:userId/work/:workId', (req, res) => {
 
 router.put('/:userId/work/:workId', (req, res) => {
   const sql = 'UPDATE works SET name=?, address=?, latitude=?, longitude=?, hourly_wage=?, probation=?, recess=?, recess_state=?, pay_day=?, tax=? WHERE id=?';
-  const body = Object.values(req.body);
-  const params = [...body, req.params.workId];
+  const params = [req.body.name, req.body.address, req.body.latitude, req.body.longitude, req.body.hourly_wage, req.body.probation, req.body.recess, req.body.recess_state, req.body.pay_day, req.body.tax, req.params.workId];
   conn.query(sql, params, (err) => {
     if (err) {
       console.log(err);
@@ -87,9 +86,9 @@ router.delete('/:userId/work/:workId', (req, res) => {
   });
 });
 
-router.get('/:userId/work/:workId/main', (req, res) => {
+// router.get('/:userId/work/:workId/main', (req, res) => {
 
-});
+// });
 
 router.post('/:userId/work/:workId/main', (req, res) => {
   const timestamp = {
@@ -109,17 +108,17 @@ router.post('/:userId/work/:workId/main', (req, res) => {
   });
 });
 
-router.get('/:userId/work/:workId/main/detail', (req, res) => {
+// router.get('/:userId/work/:workId/main/detail', (req, res) => {
 
-});
+// });
 
-router.get('/:userId/work/:workId/main/calendar/:year/:month', (req, res) => {
+// router.get('/:userId/work/:workId/main/calendar/:year/:month', (req, res) => {
 
-});
+// });
 
-router.get('/:userId/work/:workId/main/calendar/:year/:month/day', (req, res) => {
+// router.get('/:userId/work/:workId/main/calendar/:year/:month/day', (req, res) => {
 
-});
+// });
 
 
 module.exports = router;
