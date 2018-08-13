@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const config = require('./config/config');
 const auth = require('./routes/auth');
 const user = require('./routes/user');
 
