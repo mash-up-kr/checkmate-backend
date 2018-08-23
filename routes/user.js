@@ -32,6 +32,8 @@ router.post('/:userId/work', (req, res) => {
       recess_state: req.body.recess_state,
       pay_day: req.body.pay_day,
       tax: req.body.tax,
+      five_state: req.body.five_state,
+      working_day: req.body.working_day,
     };
     const sql = 'INSERT INTO works SET ?';
     conn.query(sql, work, (err) => {
@@ -60,8 +62,8 @@ router.get('/:userId/work/:workId', (req, res) => {
 });
 
 router.put('/:userId/work/:workId', (req, res) => {
-  const sql = 'UPDATE works SET name=?, address=?, latitude=?, longitude=?, hourly_wage=?, probation=?, recess=?, recess_state=?, pay_day=?, tax=? WHERE id=?';
-  const params = [req.body.name, req.body.address, req.body.latitude, req.body.longitude, req.body.hourly_wage, req.body.probation, req.body.recess, req.body.recess_state, req.body.pay_day, req.body.tax, req.params.workId];
+  const sql = 'UPDATE works SET name=?, address=?, latitude=?, longitude=?, hourly_wage=?, probation=?, recess=?, recess_state=?, pay_day=?, tax=?, five_state=?, working_day=? WHERE id=?';
+  const params = [req.body.name, req.body.address, req.body.latitude, req.body.longitude, req.body.hourly_wage, req.body.probation, req.body.recess, req.body.recess_state, req.body.pay_day, req.body.tax, req.body.five_state, req.body.working_day, req.params.workId];
   conn.query(sql, params, (err) => {
     if (err) {
       console.log(err);
