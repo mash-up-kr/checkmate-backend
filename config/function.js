@@ -58,4 +58,15 @@ module.exports = {
     }
     callback(result1, result2);
   },
+  dayZeroFillGenerator(year, month, day, callback) {
+    let result1 = new Date(year, month, day);
+    let result2 = new Date(Date.parse(result1) + 1 * 1000 * 60 * 60 * 24);
+    const month1 = `0${result1.getMonth()}`;
+    const day1 = `0${result1.getDate()}`;
+    const month2 = `0${result2.getMonth()}`;
+    const day2 = `0${result2.getDate()}`;
+    result1 = `${result1.getFullYear()}-${month1.slice(-2)}-${day1.slice(-2)}`;
+    result2 = `${result2.getFullYear()}-${month2.slice(-2)}-${day2.slice(-2)}`;
+    callback(result1, result2);
+  },
 };

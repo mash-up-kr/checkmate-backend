@@ -129,9 +129,39 @@ router.get('/:userId/work/:workId/main/calendar/:year/:month', (req, res) => {
   });
 });
 
-// router.get('/:userId/work/:workId/main/calendar/:year/:month/day', (req, res) => {
-
-// });
+router.get('/:userId/work/:workId/main/calendar/:year/:month/:day', (req, res) => {
+  const sql = "SELECT date_format(timestamp, '%y-%m-%d %h:%m:%s') timestamp FROM timestamps WHERE work_id=? AND timestamp>? AND timestamp<?";
+  func.dayZeroFillGenerator(req.params.year, req.params.month, req.params.day, (result1, result2) => {
+    conn.query(sql, [req.params.workId, result1, result2], (err, results) => {
+      if (err) {
+        console.log(err);
+        res.status(500).json(config.status.sc500);
+      } else {
+        const timestamps = results;
+        const sql2 = 'SELECT * FROM work_records WHERE work_id=? AND date=?';
+        conn.query(sql2, [req.params.workId, result1], (err2, results2) => {
+          if (err2) {
+            console.log(err);
+            res.status(500).json(config.status.sc500);
+          } else {
+            const result = {
+              daily_wage: results2[0].daily_wage,
+              hourly_wage: results2[0].hourly_wage,
+              working_hour: results2[0].working_hour,
+              time: timestamps,
+              night_allowance: results2[0].night_allowance,
+              holiday_allowance: results2[0].holiday_allowance,
+              overtime_pay: results2[0].overtime_pay,
+              weekly_holiday_allowance: results2[0].weekly_holiday_allowance,
+            };
+            console.log('Check daily calendar !');
+            res.json(result);
+          }
+        });
+      }
+    });
+  });
+});
 
 
 module.exports = router;
