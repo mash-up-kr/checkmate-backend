@@ -114,9 +114,20 @@ router.post('/:userId/work/:workId/main', (req, res) => {
 
 // });
 
-// router.get('/:userId/work/:workId/main/calendar/:year/:month', (req, res) => {
-
-// });
+router.get('/:userId/work/:workId/main/calendar/:year/:month', (req, res) => {
+  const sql = 'SELECT date, daily_wage FROM work_records WHERE work_id=? AND date>? AND date<?';
+  func.monthZeroFillGenerator(req.params.year, req.params.month, (result1, result2) => {
+    conn.query(sql, [req.params.workdId, result1, result2], (err, results) => {
+      if (err) {
+        console.log(err);
+        res.status(500).json(config.status.sc500);
+      } else {
+        console.log('Check monthly calendar !');
+        res.json(results);
+      }
+    });
+  });
+});
 
 // router.get('/:userId/work/:workId/main/calendar/:year/:month/day', (req, res) => {
 

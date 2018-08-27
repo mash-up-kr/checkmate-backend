@@ -40,4 +40,22 @@ module.exports = {
       }
     });
   },
+  monthZeroFillGenerator(year, month, callback) {
+    let result1 = `${year}-`;
+    let result2 = `${year}-`;
+    if (month < 8) {
+      result1 += `0${month}`;
+      result2 += `0${month + 1}`;
+    } else if (month === 9) {
+      result1 += `0${month}`;
+      result2 += `${month + 1}`;
+    } else if (month < 12) {
+      result1 += `${month}`;
+      result2 += `${month + 1}`;
+    } else if (month === 12) {
+      result1 += `${month}`;
+      result2 = `${year + 1}-01`;
+    }
+    callback(result1, result2);
+  },
 };
