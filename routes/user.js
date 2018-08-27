@@ -115,9 +115,9 @@ router.post('/:userId/work/:workId/main', (req, res) => {
 // });
 
 router.get('/:userId/work/:workId/main/calendar/:year/:month', (req, res) => {
-  const sql = 'SELECT date, daily_wage FROM work_records WHERE work_id=? AND date>? AND date<?';
+  const sql = "SELECT date_format(date, '%y-%m-%d') date, daily_wage FROM work_records WHERE work_id=? AND date>? AND date<?";
   func.monthZeroFillGenerator(req.params.year, req.params.month, (result1, result2) => {
-    conn.query(sql, [req.params.workdId, result1, result2], (err, results) => {
+    conn.query(sql, [req.params.workId, result1, result2], (err, results) => {
       if (err) {
         console.log(err);
         res.status(500).json(config.status.sc500);

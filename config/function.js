@@ -43,18 +43,18 @@ module.exports = {
   monthZeroFillGenerator(year, month, callback) {
     let result1 = `${year}-`;
     let result2 = `${year}-`;
-    if (month < 8) {
-      result1 += `0${month}`;
-      result2 += `0${month + 1}`;
+    if (month < 9) {
+      result1 += `0${month}-00`;
+      result2 += `0${parseInt(month, 10) + 1}-00`;
     } else if (month === 9) {
-      result1 += `0${month}`;
-      result2 += `${month + 1}`;
+      result1 += `0${month}-00`;
+      result2 += `${parseInt(month, 10) + 1}-00`;
     } else if (month < 12) {
-      result1 += `${month}`;
-      result2 += `${month + 1}`;
+      result1 += `${month}-00`;
+      result2 += `${parseInt(month, 10) + 1}-00`;
     } else if (month === 12) {
-      result1 += `${month}`;
-      result2 = `${year + 1}-01`;
+      result1 += `${month}-00`;
+      result2 = `${parseInt(year, 10) + 1}-01-00`;
     }
     callback(result1, result2);
   },
