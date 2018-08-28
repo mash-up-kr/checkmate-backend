@@ -131,9 +131,32 @@ router.post('/:userId/work/:workId/main', (req, res) => {
   });
 });
 
-// router.get('/:userId/work/:workId/main/detail', (req, res) => {
-
-// });
+router.get('/:userId/work/:workId/main/detail', (req, res) => {
+  const sql = 'SELECT SUM(daily_wage) totalMoney, SUM(working_hour) totalHour, hourly_wage, '
+              + 'SUM(weekly_holiday_allowance) weeklyHolidayAllowance, SUM(night_allowance) nightAllowance, '
+              + 'SUM(holiday_allowance) holidayAllowance, SUM(overtime_pay) overtimePay FROM work_records WHERE work_id=? AND date>? AND date<?';
+  const date = new Date();
+  func.monthZeroFillGenerator(date.getFullYear(), date.getMonth() + 1, (result1, result2) => {
+    conn.query(sql, [req.params.workId, result1, result2], (err, results) => {
+      if (err) {
+        console.log(err);
+        res.status(500).json(config.status.sc500);
+      } else {
+        const result = {
+          total_money: results[0].totalMoney,
+          total_hour: results[0].totalHour,
+          hourly_wage: results[0].hourly_wage,
+          weekly_holiday_allowance: results[0].weeklyHolidayAllowance,
+          night_allowance: results[0].nightAllowance,
+          holiday_allowance: results[0].holidayAllowance,
+          overtime_pay: results[0].overtimePay,
+        };
+        console.log('Check detail main page !');
+        res.json(result);
+      }
+    });
+  });
+});
 
 router.get('/:userId/work/:workId/main/calendar/:year/:month', (req, res) => {
   const sql = "SELECT date_format(date, '%y-%m-%d') date, daily_wage FROM work_records WHERE work_id=? AND date>? AND date<?";
