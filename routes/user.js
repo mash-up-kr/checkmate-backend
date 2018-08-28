@@ -88,9 +88,30 @@ router.delete('/:userId/work/:workId', (req, res) => {
   });
 });
 
-// router.get('/:userId/work/:workId/main', (req, res) => {
-
-// });
+router.get('/:userId/work/:workId/main', (req, res) => {
+  func.baseDayCalculator((baseDay) => {
+    func.totalDayCalculator(res, req.params.workId, (totalDay) => {
+      const date = new Date();
+      func.monthZeroFillGenerator(date.getFullYear(), date.getMonth() + 1, (result1, result2) => {
+        const sql = 'SELECT SUM(daily_wage) totalMoney FROM work_records WHERE work_id=? AND date>? AND date<?';
+        conn.query(sql, [req.params.workId, result1, result2], (err, results) => {
+          if (err) {
+            console.log(err);
+            res.status(500).json(config.status.sc500);
+          } else {
+            const result = {
+              base_day: baseDay,
+              total_day: totalDay,
+              total_money: results[0].totalMoney,
+            };
+            console.log('Check main page !');
+            res.json(result);
+          }
+        });
+      });
+    });
+  });
+});
 
 router.post('/:userId/work/:workId/main', (req, res) => {
   const timestamp = {
