@@ -8,6 +8,7 @@ router.post('/login', (req, res) => {
     id: req.body.id,
     nickname: req.body.nickname,
     email: req.body.email,
+    thumbnail_image: req.body.thumbnail_image,
   };
   const sql = 'SELECT * FROM users WHERE id=?';
   conn.query(sql, [user.id], (err, results) => {
