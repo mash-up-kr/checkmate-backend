@@ -69,4 +69,32 @@ module.exports = {
     result2 = `${result2.getFullYear()}-${month2.slice(-2)}-${day2.slice(-2)}`;
     callback(result1, result2);
   },
+  firstAndLastDateCalculator(res, workId, callback) {
+    const sql = 'SELECT pay_day FROM works WHERE id=?';
+    const today = new Date();
+    conn.query(sql, [workId], (err, results) => {
+      if (err || results.length === 0) {
+        console.log(err);
+        res.status(500).json(config.status.sc500);
+      } else if (results[0].pay_day >= today.getDate()) {
+        const beforePayDay = (today.getMonth() > 0) ? new Date(today.getFullYear(), today.getMonth(), results[0].pay_day + 1) : new Date(today.getFullYear() - 1, 12, results[0].pay_day + 1);
+        const month1 = `0${beforePayDay.getMonth() + 1}`;
+        const day1 = `0${beforePayDay.getDate()}`;
+        const month2 = `0${today.getMonth() + 1}`;
+        const day2 = `0${today.getDate()}`;
+        const result1 = `${beforePayDay.getFullYear()}-${month1.slice(-2)}-${day1.slice(-2)}`;
+        const result2 = `${today.getFullYear()}-${month2.slice(-2)}-${day2.slice(-2)}`;
+        callback(result1, result2);
+      } else {
+        const beforePayDay = new Date(today.getFullYear(), today.getMonth() + 1, results[0].pay_day + 1);
+        const month1 = `0${beforePayDay.getMonth() + 1}`;
+        const day1 = `0${beforePayDay.getDate()}`;
+        const month2 = `0${today.getMonth() + 1}`;
+        const day2 = `0${today.getDate()}`;
+        const result1 = `${beforePayDay.getFullYear()}-${month1.slice(-2)}-${day1.slice(-2)}`;
+        const result2 = `${today.getFullYear()}-${month2.slice(-2)}-${day2.slice(-2)}`;
+        callback(result1, result2);
+      }
+    });
+  },
 };
