@@ -92,7 +92,7 @@ router.get('/:userId/work/:workId/main', (req, res) => {
   func.baseDayCalculator((baseDay) => {
     func.totalDayCalculator(res, req.params.workId, (totalDay) => {
       func.firstAndLastDateCalculator(res, req.params.workId, (result1, result2) => {
-        const sql = 'SELECT SUM(daily_wage) totalMoney, SUM(working_hour) totalHour, hourly_wage FROM work_records WHERE work_id=? AND date>? AND date<?';
+        const sql = 'SELECT SUM(daily_wage) totalMoney, SUM(working_hour) totalHour, hourly_wage FROM work_records WHERE work_id=? AND date>=? AND date<=?';
         conn.query(sql, [req.params.workId, result1, result2], (err, results) => {
           if (err) {
             console.log(err);
