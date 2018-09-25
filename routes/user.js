@@ -135,7 +135,7 @@ router.post('/:userId/work/:workId/main', (req, res) => {
 router.get('/:userId/work/:workId/main/detail', (req, res) => {
   const sql = 'SELECT SUM(daily_wage) totalMoney, SUM(working_hour) totalHour, hourly_wage, '
               + 'SUM(weekly_holiday_allowance) weeklyHolidayAllowance, SUM(night_allowance) nightAllowance, '
-              + 'SUM(holiday_allowance) holidayAllowance, SUM(overtime_pay) overtimePay FROM work_records WHERE work_id=? AND date>? AND date<?';
+              + 'SUM(holiday_allowance) holidayAllowance, SUM(overtime_pay) overtimePay FROM work_records WHERE work_id=? AND date>=? AND date<=?';
   func.firstAndLastDateCalculator(res, req.params.workId, (result1, result2) => {
     conn.query(sql, [req.params.workId, result1, result2], (err, results) => {
       if (err) {
