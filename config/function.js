@@ -78,7 +78,7 @@ module.exports = {
         res.status(500).json(config.status.sc500);
       } else if (results[0].pay_day >= today.getDate()) {
         const beforePayDay = (today.getMonth() > 0) ? new Date(today.getFullYear(), today.getMonth(), results[0].pay_day + 1) : new Date(today.getFullYear() - 1, 12, results[0].pay_day + 1);
-        const month1 = `0${beforePayDay.getMonth() + 1}`;
+        const month1 = `0${beforePayDay.getMonth()}`;
         const day1 = `0${beforePayDay.getDate()}`;
         const month2 = `0${today.getMonth() + 1}`;
         const day2 = `0${today.getDate()}`;
