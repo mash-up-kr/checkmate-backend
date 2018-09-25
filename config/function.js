@@ -87,7 +87,7 @@ module.exports = {
         callback(result1, result2);
       } else {
         const beforePayDay = new Date(today.getFullYear(), today.getMonth() + 1, results[0].pay_day + 1);
-        const month1 = `0${beforePayDay.getMonth() + 1}`;
+        const month1 = `0${beforePayDay.getMonth()}`;
         const day1 = `0${beforePayDay.getDate()}`;
         const month2 = `0${today.getMonth() + 1}`;
         const day2 = `0${today.getDate()}`;
