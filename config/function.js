@@ -23,13 +23,22 @@ module.exports = {
   },
   totalDayCalculator(res, workId, callback) {
     const sql = 'SELECT pay_day FROM works WHERE id=?';
+    const today = new Date();
     conn.query(sql, [workId], (err, results) => {
       if (err || results.length === 0) {
         console.log(err);
         res.status(500).json(config.status.sc500);
-      } else {
-        const today = new Date();
+      } else if (results[0].pay_day >= today.getDate()) {
         const beforePayDay = (today.getMonth() > 0) ? new Date(today.getFullYear(), today.getMonth(), results[0].pay_day + 1) : new Date(today.getFullYear() - 1, 12, results[0].pay_day + 1);
+        let diffDate1 = beforePayDay instanceof Date ? beforePayDay : new Date(beforePayDay);
+        let diffDate2 = today instanceof Date ? today : new Date(today);
+        diffDate1 = new Date(diffDate1.getFullYear(), diffDate1.getMonth() + 1, diffDate1.getDate());
+        diffDate2 = new Date(diffDate2.getFullYear(), diffDate2.getMonth() + 1, diffDate2.getDate());
+        let totalDay = Math.abs(diffDate2.getTime() - diffDate1.getTime());
+        totalDay = Math.ceil(totalDay / (1000 * 3600 * 24));
+        callback(totalDay);
+      } else {
+        const beforePayDay = new Date(today.getFullYear(), today.getMonth() + 1, results[0].pay_day + 1);
         let diffDate1 = beforePayDay instanceof Date ? beforePayDay : new Date(beforePayDay);
         let diffDate2 = today instanceof Date ? today : new Date(today);
         diffDate1 = new Date(diffDate1.getFullYear(), diffDate1.getMonth() + 1, diffDate1.getDate());
