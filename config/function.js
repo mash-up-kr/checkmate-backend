@@ -31,10 +31,10 @@ module.exports = {
         const today = new Date();
         const beforePayDay = (today.getMonth() > 0) ? new Date(today.getFullYear(), today.getMonth(), results[0].pay_day + 1) : new Date(today.getFullYear() - 1, 12, results[0].pay_day + 1);
         let diffDate1 = beforePayDay instanceof Date ? beforePayDay : new Date(beforePayDay);
-        let difDate2 = today instanceof Date ? today : new Date(today);
+        let diffDate2 = today instanceof Date ? today : new Date(today);
         diffDate1 = new Date(diffDate1.getFullYear(), diffDate1.getMonth() + 1, diffDate1.getDate());
-        difDate2 = new Date(difDate2.getFullYear(), difDate2.getMonth() + 1, difDate2.getDate());
-        let totalDay = Math.abs(difDate2.getTime() - diffDate1.getTime());
+        diffDate2 = new Date(diffDate2.getFullYear(), diffDate2.getMonth() + 1, diffDate2.getDate());
+        let totalDay = Math.abs(diffDate2.getTime() - diffDate1.getTime());
         totalDay = Math.ceil(totalDay / (1000 * 3600 * 24));
         callback(totalDay);
       }
