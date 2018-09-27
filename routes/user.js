@@ -174,7 +174,7 @@ router.get('/:userId/work/:workId/main/calendar/:year/:month', (req, res) => {
 });
 
 router.get('/:userId/work/:workId/main/calendar/:year/:month/:day', (req, res) => {
-  const sql = "SELECT date_format(timestamp, '%y-%m-%d %h:%m:%s') timestamp FROM timestamps WHERE work_id=? AND timestamp>? AND timestamp<?";
+  const sql = "SELECT date_format(timestamp, '%y-%m-%d %H:%i:%s') timestamp FROM timestamps WHERE work_id=? AND timestamp>? AND timestamp<?";
   func.dayZeroFillGenerator(req.params.year, req.params.month, req.params.day, (result1, result2) => {
     conn.query(sql, [req.params.workId, result1, result2], (err, results) => {
       if (err) {
