@@ -1,4 +1,4 @@
-# checkmate-backend
+# 2018년 서울시 앱 공모전 출품작(check-mate)
 
 ## Mash-Up 5기 프로젝트팀 체크메이트 : 위치 기반 급여 자동 계산 앱
 
@@ -18,8 +18,8 @@
  - **[Checkmate-ios](https://github.com/mash-up-kr/Checkmate-ios)**
 
 ### 팀원 소개
-- Front-End(ios) : 김동현, 김선재, 김창민, 김현섭
-- Back-End(node.js) : 김찬연, 김한슬마로, 조현우
+- Front-End(ios) : 김선재, 김창민, 김현섭
+- Back-End(node.js) : 조현우
 - Designer : 이다민, 조성윤
 
 ![checkmate](https://user-images.githubusercontent.com/36880294/43879776-84c9254e-9be0-11e8-9ac5-2e128f58ee22.png)
